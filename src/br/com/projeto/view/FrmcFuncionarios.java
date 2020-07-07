@@ -25,7 +25,7 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
     // metodo lista na tabela
     public void listar() {
         FuncionariosDAO dao = new FuncionariosDAO();
-        List<Funcionarios> lista = dao.listarFunciorios();
+        List<Funcionarios> lista = dao.listarFuncionarios();
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
 
@@ -274,11 +274,24 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setText("Complemento:");
 
+        txtnome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtemail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtemailActionPerformed(evt);
             }
         });
+
+        txtendereco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtnumero.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtbairro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtcidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtcomplemento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("Senha:");
@@ -287,6 +300,8 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Cargo:");
+
+        txtcargo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("Nível de Acesso");
@@ -345,7 +360,9 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(txtbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(72, 72, 72)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtcidade, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -371,8 +388,6 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(293, 293, 293)
                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtcomplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,7 +472,7 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(txtrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
@@ -614,19 +629,22 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // botao pesquisar
         String nome = "%" + jTextPane1.getText() + "%";
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscarClientePorNome(nome);
-
+        FuncionariosDAO dao = new FuncionariosDAO();
+        List<Funcionarios> lista = dao.buscarFuncionariosPorNome(nome);
+        // depois descobrir o que é melhor do que esse defaultablemodel... deve existir
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
 
-        for (Clientes c : lista) {
+        for (Funcionarios c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
                 c.getRg(),
                 c.getCpf(),
                 c.getEmail(),
+                c.getSenha(),
+                c.getCargo(),
+                c.getNivel_acesso(),
                 c.getTelefone(),
                 c.getCelular(),
                 c.getCep(),
@@ -685,12 +703,15 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         // botao editar
 
-        Clientes obj = new Clientes();
+        Funcionarios obj = new Funcionarios();
 
         obj.setNome(txtnome.getText());
         obj.setRg(txtrg.getText());
         obj.setCpf(txtcpf.getText());
         obj.setEmail(txtemail.getText());
+        obj.setSenha(txtsenha.getText());
+        obj.setCargo (txtcargo.getText());
+        obj.setNivel_acesso(cbnivel.getSelectedItem().toString());
         obj.setTelefone(txttelefone.getText());
         obj.setCelular(txtcelular.getText());
         obj.setCep(txtcep.getText());
@@ -703,9 +724,9 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
 
         obj.setId(Integer.parseInt(txtid.getText()));
 
-        ClientesDAO dao = new ClientesDAO();
+        FuncionariosDAO dao = new FuncionariosDAO();
 
-        dao.alterarCliente(obj);
+        dao.alterarFuncionario(obj);
 
         new Utilitarios().LimpaTela(jPanel2);
         // TODO add your handling code here:
@@ -715,11 +736,11 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // botao excluir
-        Clientes obj = new Clientes();
+        Funcionarios obj = new Funcionarios();
 
         obj.setId(Integer.parseInt(txtid.getText()));
 
-        ClientesDAO dao = new ClientesDAO();
+        FuncionariosDAO dao = new FuncionariosDAO();
 
         dao.excluirCliente(obj);
 
@@ -736,8 +757,8 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
         // botao buscar cliente por nome
        
             String nome = txtnome.getText();
-            Clientes obj = new Clientes();
-            ClientesDAO dao = new ClientesDAO();
+            Funcionarios obj = new Funcionarios();
+            FuncionariosDAO dao = new FuncionariosDAO();
 
             obj = dao.consultaPorNome(nome);
             
@@ -749,6 +770,11 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
             txtrg.setText(obj.getRg());
             txtcpf.setText(obj.getCpf());
             txtemail.setText(obj.getEmail());
+            
+            txtsenha.setText(obj.getSenha());
+            txtcargo.setText(obj.getCargo());
+            cbnivel.setSelectedItem(obj.getNivel_acesso());;
+            
             txttelefone.setText(obj.getTelefone());
             txtcelular.setText(obj.getCelular());
             txtcep.setText(obj.getCep());
@@ -778,15 +804,19 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
         txtrg.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 2).toString());
         txtcpf.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 3).toString());
         txtemail.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 4).toString());
-        txttelefone.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
-        txtcelular.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 6).toString());
-        txtcep.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 7).toString());
-        txtendereco.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 8).toString());
-        txtnumero.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 9).toString());
-        txtcomplemento.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 10).toString());
-        txtbairro.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 11).toString());
-        txtcidade.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 12).toString());
-        cbuf.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 13).toString());
+        txtsenha.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 5).toString());
+        txtcargo.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 6).toString());
+        cbnivel.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 7).toString());
+       
+        txttelefone.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 8).toString());
+        txtcelular.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 9).toString());
+        txtcep.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 10).toString());
+        txtendereco.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 11).toString());
+        txtnumero.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 12).toString());
+        txtcomplemento.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 13).toString());
+        txtbairro.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 14).toString());
+        txtcidade.setText(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 15).toString());
+        cbuf.setSelectedItem(tabelaFuncionarios.getValueAt(tabelaFuncionarios.getSelectedRow(), 16).toString());
 
 
     }//GEN-LAST:event_tabelaFuncionariosMouseClicked
@@ -806,21 +836,24 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtemailActionPerformed
 
     private void jTextPane1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPane1KeyPressed
-   // botao pesquisar key pressed
+   // botao pesquisar
         String nome = "%" + jTextPane1.getText() + "%";
-        ClientesDAO dao = new ClientesDAO();
-        List<Clientes> lista = dao.buscarClientePorNome(nome);
-
+        FuncionariosDAO dao = new FuncionariosDAO();
+        List<Funcionarios> lista = dao.buscarFuncionariosPorNome(nome);
+        // depois descobrir o que é melhor do que esse defaultablemodel... deve existir
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionarios.getModel();
         dados.setNumRows(0);
 
-        for (Clientes c : lista) {
+        for (Funcionarios c : lista) {
             dados.addRow(new Object[]{
                 c.getId(),
                 c.getNome(),
                 c.getRg(),
                 c.getCpf(),
                 c.getEmail(),
+                c.getSenha(),
+                c.getCargo(),
+                c.getNivel_acesso(),
                 c.getTelefone(),
                 c.getCelular(),
                 c.getCep(),
@@ -830,8 +863,7 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
                 c.getBairro(),
                 c.getCidade(),
                 c.getUf(),});
-
-        }        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_jTextPane1KeyPressed
 
     private void txtcepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcepKeyPressed
