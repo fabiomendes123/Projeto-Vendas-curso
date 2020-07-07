@@ -10,7 +10,10 @@ import br.com.projeto.model.Clientes;
 import br.com.projeto.model.Funcionarios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,9 +32,9 @@ public class FuncionariosDAO {
      public void cadastrarFuncionarios(Funcionarios obj){
         try{
             
-            String sql = "insert into tb_funcionarios (nome,rg,cpf,email,senhas,cargo,nivel_acesso,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado)"
+            String sql = "insert into tb_funcionarios (nome,rg,cpf,email,senha,cargo,nivel_acesso,telefone,celular,cep,endereco,numero,complemento,bairro,cidade,estado)"
                     +"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            //passo conectar o banco de dados e organizar o comando sql
+            //2 passo conectar o banco de dados e organizar o comando sql
             PreparedStatement stmt=con.prepareStatement(sql);
             
             stmt.setString(1, obj.getNome());
@@ -50,7 +53,7 @@ public class FuncionariosDAO {
             stmt.setString(14, obj.getBairro());
             stmt.setString(15, obj.getCidade());
             stmt.setString(16, obj.getUf());
-        // executar o comando sql
+            // executar o comando sql
             stmt.execute();
             stmt.close();
             
@@ -62,5 +65,47 @@ public class FuncionariosDAO {
         }
     
      } 
-    
+     
+     // lista funcionarios
+    public List<Funcionarios> listarFunciorios(){
+        try{
+            //1º criar a lista
+            List<Funcionarios> lista = new ArrayList<>();
+            // 2º criar comando sql
+            String sql = "SELECT * FROM bdvendas.tb_funcionarios";
+            
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                
+                Funcionarios obj = new Funcionarios();
+                
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setRg(rs.getString("rg"));
+                obj.setCpf(rs.getString("cpf"));
+                obj.setEmail(rs.getString("email"));
+                obj.setSenha(rs.getString("senha"));
+                obj.setCargo(rs.getString("cargo"));
+                obj.setNivel_acesso(rs.getString("nivel_acesso"));
+                obj.setTelefone(rs.getString("telefone"));
+                obj.setCelular(rs.getString("celular"));
+                obj.setCep(rs.getString("cep"));
+                obj.setEndereco(rs.getString("endereco"));
+                obj.setNumero(rs.getInt("numero"));
+                obj.setComplemento(rs.getString("complemento"));
+                obj.setBairro(rs.getString("bairro"));
+                obj.setCidade(rs.getString("cidade"));
+                obj.setUf(rs.getString("estado"));
+                
+                lista.add(obj);
+            }
+            return lista;
+        }
+        catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro." + erro);
+            return null;
+        }   
+        
+    }
 }
