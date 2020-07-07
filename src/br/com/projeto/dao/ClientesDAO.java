@@ -53,7 +53,7 @@ public class ClientesDAO {
             JOptionPane.showMessageDialog(null, "Erro"+ erro);
         }
     }
-    public void alaterarCliente(Clientes obj){
+    public void alterarCliente(Clientes obj){
         try{
             
             String sql = "update tb_clientes set nome=?,rg=?,cpf=?,email=?,telefone=?,celular=?,cep=?,"
@@ -75,6 +75,8 @@ public class ClientesDAO {
             stmt.setString(11, obj.getBairro());
             stmt.setString(12, obj.getCidade());
             stmt.setString(13, obj.getUf());
+            
+            
             
             stmt.setInt(14, obj.getId());
         // executar o comando sql
