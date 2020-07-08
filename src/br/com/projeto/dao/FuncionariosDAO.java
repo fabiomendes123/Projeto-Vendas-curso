@@ -9,6 +9,7 @@ import br.com.projeto.jdbc.ConnectionFactory;
 import br.com.projeto.model.Clientes;
 import br.com.projeto.model.Funcionarios;
 import br.com.projeto.model.WebServiceCep;
+import br.com.projeto.view.FrmLogin;
 import br.com.projeto.view.FrmMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -282,12 +283,14 @@ public class FuncionariosDAO {
              
             if(rs.next()){
                 //usuario logou
-                JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema! animal");
+                JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema! Troglodita" );
                 FrmMenu tela = new FrmMenu();
+                tela.usuarioLogado = rs.getString("nome");
                 tela.setVisible(true);
             } else {
                 //dados incorretos
                 JOptionPane.showMessageDialog(null, "Dados incorretos");
+                new FrmLogin().setVisible(true);
             }
              
         } catch (SQLException e) {
