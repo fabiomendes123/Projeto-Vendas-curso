@@ -8,6 +8,8 @@ package br.com.projeto.dao;
 import br.com.projeto.jdbc.ConnectionFactory;
 import br.com.projeto.model.Clientes;
 import br.com.projeto.model.Funcionarios;
+import br.com.projeto.model.WebServiceCep;
+import br.com.projeto.view.FrmMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -210,7 +212,7 @@ public class FuncionariosDAO {
 
     }
 
-    public Funcionarios consultaPorNome(String nome) {
+    public Funcionarios consultaFuncionarioPorNome(String nome) {
           try{
           String sql="select * from tb_funcionarios where nome = ?";
           PreparedStatement stmt = con.prepareStatement(sql);
@@ -247,4 +249,54 @@ public class FuncionariosDAO {
             
         }
     }
+    // busca cep
+      public Funcionarios buscaCep(String cep) {
+
+        WebServiceCep webServiceCep = WebServiceCep.searchCep(cep);
+
+        Funcionarios obj = new Funcionarios();
+
+        if (webServiceCep.wasSuccessful()) {
+            obj.setEndereco(webServiceCep.getLogradouroFull());
+            obj.setCidade(webServiceCep.getCidade());
+            obj.setBairro(webServiceCep.getBairro());
+            obj.setUf(webServiceCep.getUf());
+            return obj;
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro numero: " + webServiceCep.getResulCode());
+            JOptionPane.showMessageDialog(null, "Descrição do erro: " + webServiceCep.getResultText());
+            return null;
+        }
+
+    }
+   //metodo efetua login
+    public void efetuarLogin(String email, String senha){
+        try {
+            //1º passo
+            String sql = "select * from tb_funcionarios where email = ? and senha = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+            
+            ResultSet rs = stmt.executeQuery();
+             
+            if(rs.next()){
+                //usuario logou
+                JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema! animal");
+                FrmMenu tela = new FrmMenu();
+                tela.setVisible(true);
+            } else {
+                //dados incorretos
+                JOptionPane.showMessageDialog(null, "Dados incorretos");
+            }
+             
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro; " + e);
+        }
+    }  
+      
+      
 }
+    
+    
+

@@ -754,13 +754,13 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtrgActionPerformed
 
     private void btnbuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaActionPerformed
-        // botao buscar cliente por nome
+        // botao buscar funcionario por nome
        
             String nome = txtnome.getText();
             Funcionarios obj = new Funcionarios();
             FuncionariosDAO dao = new FuncionariosDAO();
 
-            obj = dao.consultaPorNome(nome);
+            obj = dao.consultaFuncionarioPorNome(nome);
             
             if (obj.getNome()!=null){
             
@@ -870,8 +870,8 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
       
         //Programacao do keypress
 	   if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            Clientes obj = new Clientes();
-            ClientesDAO dao = new ClientesDAO();
+            Funcionarios obj = new Funcionarios();
+            FuncionariosDAO dao = new FuncionariosDAO();
             obj = dao.buscaCep(txtcep.getText());
 
             txtendereco.setText(obj.getEndereco());
