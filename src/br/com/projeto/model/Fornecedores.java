@@ -14,7 +14,7 @@ public class Fornecedores extends Clientes{
 //atributos
     private String cnpj;
     
-    // getters and settes
+    // getters and setters
 
     public String getCnpj() {
         return cnpj;
@@ -24,15 +24,10 @@ public class Fornecedores extends Clientes{
         this.cnpj = cnpj;
     }
     
-
-
-
-
-
-
-
-
-
+    @Override
+    public String toString(){
+        return this.getNome();
+    }
 
 
     
