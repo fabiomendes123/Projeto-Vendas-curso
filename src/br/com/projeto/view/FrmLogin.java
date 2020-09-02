@@ -154,6 +154,12 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
         // TODO add your handling code here:
+        int op;
+        op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair");
+        if (op==0){
+            System.exit(0);
+        }
+        
     }//GEN-LAST:event_btnsairActionPerformed
 
     private void bntentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntentrarActionPerformed

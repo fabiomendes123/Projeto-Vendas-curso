@@ -7,7 +7,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowActivated" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowActivated"/>
@@ -38,9 +38,9 @@
               <Component id="btnexcluir" linkSize="2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnpagamento" min="-2" pref="175" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btncancelar" min="-2" pref="191" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -82,11 +82,13 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btncancelar" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                  <Component id="btnpagamento" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btncancelar" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="btnpagamento" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="btnexcluir" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btneditar" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnsalvar" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>

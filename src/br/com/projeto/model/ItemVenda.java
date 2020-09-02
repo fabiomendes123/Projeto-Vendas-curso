@@ -9,7 +9,7 @@ package br.com.projeto.model;
  *
  * @author fabio
  */
-public class ItemVendas {
+public class ItemVenda {
     // atributos
     private int id;
     private Vendas venda;

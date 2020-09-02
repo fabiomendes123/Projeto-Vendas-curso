@@ -25,7 +25,9 @@ import javax.swing.table.DefaultTableModel;
  * @author fabio
  */
 public class FrmVendas extends javax.swing.JFrame {
-
+    
+    
+    Clientes obj = new Clientes();
     double total,preco,subtotal;
     int qtd;
     
@@ -436,9 +438,9 @@ public class FrmVendas extends javax.swing.JFrame {
                 .addComponent(btnexcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnpagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
+                .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -472,10 +474,11 @@ public class FrmVendas extends javax.swing.JFrame {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnpagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnexcluir)
                         .addComponent(btneditar)
@@ -487,6 +490,7 @@ public class FrmVendas extends javax.swing.JFrame {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btneditar, btnexcluir, btnsalvar, jButton5});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -572,7 +576,7 @@ public class FrmVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnbuscaclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaclienteActionPerformed
-        Clientes obj = new Clientes();
+        //Clientes obj = new Clientes();
         ClientesDAO dao = new ClientesDAO();
         obj = dao.consultaPorCpf(txtcpf.getText());
         txtnome.setText(obj.getNome());
@@ -587,6 +591,10 @@ public class FrmVendas extends javax.swing.JFrame {
         // botao de pagamento
         FrmPagamentos telap =  new FrmPagamentos();
         telap.txttotal.setText(String.valueOf(total));
+        
+        telap.cliente = obj;
+        telap.carrinho = carrinho;
+        
         telap.setVisible(true);
         this.dispose();
         
@@ -613,9 +621,11 @@ public class FrmVendas extends javax.swing.JFrame {
     private void txtcpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcpfKeyPressed
         // busca cliente por cpf
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            Clientes obj = new Clientes();
+            
             ClientesDAO dao = new ClientesDAO();
+           
             obj = dao.consultaPorCpf(txtcpf.getText());
+            
             txtnome.setText(obj.getNome());
             
         }

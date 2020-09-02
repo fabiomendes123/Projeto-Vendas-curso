@@ -5,15 +5,27 @@
  */
 package br.com.projeto.view;
 
+import br.com.projeto.dao.ItemVendaDAO;
+import br.com.projeto.dao.ProdutosDAO;
+import br.com.projeto.dao.VendasDAO;
+import br.com.projeto.model.Clientes;
+import br.com.projeto.model.ItemVenda;
+import br.com.projeto.model.Produtos;
+import br.com.projeto.model.Vendas;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author fabio
  */
 public class FrmPagamentos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmPagamentos
-     */
+    Clientes cliente = new Clientes();
+    DefaultTableModel carrinho; 
+    
     public FrmPagamentos() {
         initComponents();
         txtcartao.setText("0.0");
@@ -44,6 +56,9 @@ public class FrmPagamentos extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txttotal = new javax.swing.JTextField();
         btnfinalizar = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtobs = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela de Pagamentos");
@@ -140,6 +155,14 @@ public class FrmPagamentos extends javax.swing.JFrame {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel18.setText("Obs.:");
+
+        txtobs.setColumns(20);
+        txtobs.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        txtobs.setRows(5);
+        jScrollPane1.setViewportView(txtobs);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,30 +172,38 @@ public class FrmPagamentos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtdinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtcartao, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtcheque, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txttroco, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(165, 165, 165)
+                                .addComponent(btnfinalizar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(btnfinalizar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,12 +226,19 @@ public class FrmPagamentos extends javax.swing.JFrame {
                     .addComponent(txttroco, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addGap(36, 36, 36)
-                .addComponent(btnfinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(35, 35, 35))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(txttotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addComponent(btnfinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -243,6 +281,58 @@ public class FrmPagamentos extends javax.swing.JFrame {
         troco = totalpago - totalvenda;
         txttroco.setText(String.valueOf(troco));
         
+        Vendas objv = new Vendas();
+        
+        //dados doc liente
+        objv.setCliente(cliente);
+       
+        // pega data da venda
+        Date agora = new Date();
+        SimpleDateFormat dataEUA = new SimpleDateFormat("yyyy-MM-dd");
+        String datamysql = dataEUA.format(agora);
+        
+        objv.setData_venda(datamysql);
+        
+        // total da venda e observação
+        objv.setTotal_venda(totalvenda);
+        objv.setObs(txtobs.getText());
+        
+        VendasDAO dao_v = new VendasDAO();
+        dao_v.cadastrarVenda(objv);
+        
+        // retorno o id da ultima venda realizada
+        
+        objv.setId(dao_v.retornaUltimaVenda());
+        
+        //cadastrando os produtos na tabela tb_itensvenda
+        
+        for(int i=0;i < carrinho.getRowCount();i++){
+            int qtd_estoque,qtd_comprada,qtd_atualizada;
+            
+            Produtos objp = new Produtos();
+            ProdutosDAO dao_produto = new ProdutosDAO();
+            
+            ItemVenda item = new ItemVenda();
+            item.setVenda(objv);
+            
+            objp.setId(Integer.parseInt(carrinho.getValueAt(i,0).toString()));
+            item.setProduto(objp);
+            item.setQtd(Integer.parseInt(carrinho.getValueAt(i,2).toString()));
+            item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i,4).toString()));
+            // baixar no estoque
+            qtd_estoque = dao_produto.retornaEstoqueAtual(objp.getId());
+            qtd_comprada = Integer.parseInt(carrinho.getValueAt(i,2).toString()); 
+            qtd_atualizada = qtd_estoque - qtd_comprada;
+            
+            dao_produto.baixarEstoque(objp.getId(), qtd_atualizada);
+            
+            
+            ItemVendaDAO daoitem = new ItemVendaDAO();
+            daoitem.cadastrarItem(item);
+            
+        }
+        //*****************************************//
+        JOptionPane.showMessageDialog(null, "Venda cadastrada");
         
     }//GEN-LAST:event_btnfinalizarActionPerformed
 
@@ -289,10 +379,13 @@ public class FrmPagamentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtcartao;
     private javax.swing.JTextField txtcheque;
     private javax.swing.JTextField txtdinheiro;
+    private javax.swing.JTextArea txtobs;
     public javax.swing.JTextField txttotal;
     private javax.swing.JTextField txttroco;
     // End of variables declaration//GEN-END:variables

@@ -274,6 +274,7 @@ public class FuncionariosDAO {
     public void efetuarLogin(String email, String senha){
         try {
             //1º passo
+            
             String sql = "select * from tb_funcionarios where email = ? and senha = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, email);
@@ -282,11 +283,27 @@ public class FuncionariosDAO {
             ResultSet rs = stmt.executeQuery();
              
             if(rs.next()){
+                
+                
+                if(rs.getString("nivel_acesso").equals("Administrador")){
                 //usuario logou
-                JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema! Troglodita" );
-                FrmMenu tela = new FrmMenu();
-                tela.usuarioLogado = rs.getString("nome");
-                tela.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema! " );
+                    FrmMenu tela = new FrmMenu();
+                    tela.usuarioLogado = rs.getString("nome");
+                    tela.setVisible(true);    
+                    }
+                // caso o usuario seja do tipo limitado
+                else if (rs.getString("nivel_acesso").equals("Usuário")) {
+                    
+                    JOptionPane.showMessageDialog(null, "Seja bem vindo ao Sistema! ");
+                    FrmMenu tela = new FrmMenu();
+                    tela.usuarioLogado = rs.getString("nome");
+                    tela.setVisible(true);
+                    // desabilitar menus
+                    tela.menu_posicao.setEnabled(false);
+                    tela.menu_controlevendas.setVisible(false);
+
+                }
             } else {
                 //dados incorretos
                 JOptionPane.showMessageDialog(null, "Dados incorretos");

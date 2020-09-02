@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author fabio
  */
-public class FrmcFuncionarios extends javax.swing.JFrame {
+public class FrmFuncionarios extends javax.swing.JFrame {
 
     // metodo lista na tabela
     public void listar() {
@@ -53,7 +53,7 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
 
     }
 
-    public FrmcFuncionarios() {
+    public FrmFuncionarios() {
         initComponents();
     }
 
@@ -118,7 +118,8 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
         btnsalvar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Funcionários");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -620,6 +621,7 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnsalvar, jButton2, jButton3, jButton5});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtcpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcpfActionPerformed
@@ -904,21 +906,23 @@ public class FrmcFuncionarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmcFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmcFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmcFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmcFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFuncionarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmcFuncionarios().setVisible(true);
+                new FrmFuncionarios().setVisible(true);
             }
         });
     }
